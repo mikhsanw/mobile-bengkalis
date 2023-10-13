@@ -60,8 +60,6 @@ class DataInformasisController extends Controller
             $validator=Validator::make($request->all(), [
 					'nama' => 'required|'.config('master.regex.json'),
 					'opd_id' => 'required|'.config('master.regex.json'),
-					'view' => 'required|'.config('master.regex.json'),
-					'permohonan_id' => 'required|'.config('master.regex.json'),
                     'data' => 'required',
                 ]);
             if ($validator->fails()) {
@@ -128,8 +126,6 @@ class DataInformasisController extends Controller
             $validator=Validator::make($request->all(), [
                 					'nama' => 'required|'.config('master.regex.json'),
 					'opd_id' => 'required|'.config('master.regex.json'),
-					'view' => 'required|'.config('master.regex.json'),
-					'permohonan_id' => 'required|'.config('master.regex.json'),
             ]);
             if ($validator->fails()) {
                 $response=['status'=>FALSE, 'pesan'=>$validator->messages()];

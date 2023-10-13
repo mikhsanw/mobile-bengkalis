@@ -14,7 +14,6 @@ $(document).ready(function() {
 				{ data: 'nama' },
 				{ data: 'opd.nama' },
 				{ data: 'view' },
-				{ data: 'permohonan.nama' },
 
 				{ data: 'action', orderable: false, searchable: false}
 		    ]

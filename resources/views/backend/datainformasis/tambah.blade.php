@@ -11,10 +11,6 @@
 			{!! Form::select('opd_id',$opd_id, null, array('id' => 'opd_id', 'class' => 'form-control select2', 'placeholder'=>'Pilih')) !!}
 		</p>
 		<p>
-			{!! Form::label('view', 'Masukkan View', ['class'=>'control-label']) !!}
-			{!! Form::text('view', null, array('id' => 'view', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
-		</p>
-		<p>
 			{!! Form::label('permohonan_id', 'Pilih Permohonan_id', ['class'=>'control-label']) !!}
 			{!! Form::select('permohonan_id',$permohonan_id, null, array('id' => 'permohonan_id', 'class' => 'form-control select2', 'placeholder'=>'Pilih')) !!}
 		</p>

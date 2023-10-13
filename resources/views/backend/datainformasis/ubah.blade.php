@@ -10,10 +10,6 @@
 			{!! Form::select('opd_id',$opd_id, $data->opd_id, array('id' => 'opd_id', 'class' => 'form-control select2', 'placeholder'=>'Pilih')) !!}
 		</p>
 		<p>
-			{!! Form::label('view', 'Masukkan View', ['class'=>'control-label']) !!}
-			{!! Form::text('view', $data->view, array('id' => 'view', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
-		</p>
-		<p>
             {!! Form::label('data', 'Upload Data Informasi', array('class' => 'control-label')) !!} <br/>
             {!! Form::file('data', null, array('id' => 'data', 'class' => 'form-control')) !!}
         </p>
