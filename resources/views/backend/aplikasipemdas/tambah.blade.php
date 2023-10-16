@@ -18,6 +18,10 @@
             {!! Form::label('foto', 'Upload Logo', array('class' => 'control-label')) !!} <br/>
             {!! Form::file('foto', null, array('id' => 'foto', 'class' => 'form-control')) !!}
         </p>
+        <p>
+            {!! Form::label('jenis', 'Pilih jenis', array('class' => 'control-label')) !!}
+            {!! Form::select('jenis', config('master.jenis_aplikasi'), null, array('id' => 'jenis', 'class' => 'select2 form-control jenis', 'placeholder'=>'Pilih','style' => 'width:100%')) !!}
+        </p>
 
     </div>
 	{!! Form::hidden('table-list', 'datatable', array('id' => 'table-list')) !!}

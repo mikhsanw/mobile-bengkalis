@@ -18,5 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::post('reset_pegawai_penempatan', 'Backend/jabatanpenempatanController@reset_pegawai_penempatan');
+Route::post('/berita', 'Api\SuperappsController@berita');
+Route::post('/aplikasipemda', 'Api\SuperappsController@aplikasipemda');
+Route::get('/hapus/{id}', 'Backend\OpdsController@hapus');
 

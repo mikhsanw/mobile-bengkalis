@@ -70,5 +70,9 @@ return [
         'galeri'               => '0',
         'slider'               => '1',
     ],
+    'jenis_aplikasi'=>[
+        'Layanan Masyarakat' => 'Layanan Masyarakat',
+        'Layanan Pemerintah' => 'Layanan Pemerintah',
+    ]
     
 ];

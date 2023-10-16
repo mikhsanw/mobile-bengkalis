@@ -17,6 +17,10 @@
             {!! Form::label('foto', 'Upload Logo', array('class' => 'control-label')) !!} <br/>
             {!! Form::file('foto', null, array('id' => 'foto', 'class' => 'form-control')) !!}
         </p>
+        <p>
+            {!! Form::label('jenis', 'Pilih jenis', array('class' => 'control-label')) !!}
+            {!! Form::select('jenis', config('master.jenis_aplikasi'), $data->jenis, array('id' => 'jenis', 'class' => 'select2 form-control jenis', 'placeholder'=>'Pilih','style' => 'width:100%')) !!}
+        </p>
     </div>
     <div class="col-md-12">
         <img src="{{$data->file->url_stream.'?t='.time() ?? '#'}}" style="background: transparent url({{asset('backend/img/loading.gif')}}) no-repeat center; width: 100%"/>

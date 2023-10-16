@@ -16,7 +16,7 @@ class AplikasiPemda extends Model
     ];
 
     protected $fillable=[
-        'id', 'nama', 'keterangan', 'opd_id',
+        'id', 'nama', 'keterangan', 'opd_id', 'jenis'
     ];
     
 	public function opd()
