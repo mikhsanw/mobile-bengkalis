@@ -11,7 +11,7 @@ class SuperappsController extends Controller
 {
     public function berita(request $req)
     {
-        if($req->author == 'mikhsanw'){
+        if($req->author == 'pbe'){
             $beritas = Berita::limit(10)->get();
             $data = $beritas->map(function($berita) {
                 return [
@@ -30,7 +30,7 @@ class SuperappsController extends Controller
     }
     public function aplikasipemda(request $req)
     {
-        if($req->author == 'mikhsanw'){
+        if($req->author == 'pbe'){
             $values = AplikasiPemda::limit(10)->get();
             $data = $values->map(function($val) {
                 return [
@@ -39,6 +39,7 @@ class SuperappsController extends Controller
                     'keterangan' => $val->keterangan,
                     'opd' => $val->opd->nama,
                     'foto' => $val->file->url_stream,
+                    'jenis' => $val->jenis
                 ];
             });
             return response()->json(['message' => 'Success','data' => $data], 200);
