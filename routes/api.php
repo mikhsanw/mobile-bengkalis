@@ -20,5 +20,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/berita', 'Api\SuperappsController@berita');
 Route::post('/aplikasipemda', 'Api\SuperappsController@aplikasipemda');
+Route::post('/cariaplikasipemda', 'Api\SuperappsController@cariaplikasipemda');
 Route::get('/hapus/{id}', 'Backend\OpdsController@hapus');
 

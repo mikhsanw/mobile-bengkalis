@@ -31,7 +31,26 @@ class SuperappsController extends Controller
     public function aplikasipemda(request $req)
     {
         if($req->author == 'pbe'){
-            $values = AplikasiPemda::whereJenis($req->jenis)->limit(10)->get();
+            $values = AplikasiPemda::whereJenis($req->jenis)->get();
+            $data = $values->map(function($val) {
+                return [
+                    'id' => $val->id,
+                    'nama' => $val->nama,
+                    'keterangan' => $val->keterangan,
+                    'opd' => $val->opd->nama,
+                    'foto' => $val->file->url_stream,
+                    'jenis' => $val->jenis
+                ];
+            });
+            return response()->json(['message' => 'Success','data' => $data], 200);
+        }else{
+            return response()->json(['error' => 'Operation failed'], 500);
+        }
+    }
+    public function cariaplikasipemda(request $req)
+    {
+        if($req->author == 'pbe'){
+            $values = AplikasiPemda::where('nama','LIKE','%'.$req->cari.'%')->limit(10)->get();
             $data = $values->map(function($val) {
                 return [
                     'id' => $val->id,
