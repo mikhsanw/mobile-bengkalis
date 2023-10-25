@@ -31,7 +31,7 @@ class SuperappsController extends Controller
     public function aplikasipemda(request $req)
     {
         if($req->author == 'pbe'){
-            $values = AplikasiPemda::limit(10)->get();
+            $values = AplikasiPemda::whereJenis($req->jenis)->limit(10)->get();
             $data = $values->map(function($val) {
                 return [
                     'id' => $val->id,
