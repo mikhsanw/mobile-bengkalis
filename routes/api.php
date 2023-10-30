@@ -24,5 +24,6 @@ Route::post('/cariaplikasipemda', 'Api\SuperappsController@cariaplikasipemda');
 Route::get('/hapus/{id}', 'Backend\OpdsController@hapus');
 
 //api siterubuk
-Route::post('/permohonan/store', 'Api\AppSiterubukController@store');
+Route::post('/storepermohonan', 'Api\AppSiterubukController@storepermohonan');
+Route::post('/opd', 'Api\AppSiterubukController@opd');
 

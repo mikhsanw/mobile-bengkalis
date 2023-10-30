@@ -50,7 +50,7 @@ return [
         'gambar'=>'mimes:jpg,jpeg,png,bmp,tiff |max:4096',
         'file'=>'file|mimes:ppt,pptx,doc,docx,pdf,xls,xlsx,zip,rar|max:10240',
         'email'=>'regex:/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/',
-        'number'=>'regex:/^[0-9]*$'
+        'number'=>'regex:/^[0-9]+$/'
     ],
     'status_pengumuman'=>[
         'danger'=>'Sangat Penting',
