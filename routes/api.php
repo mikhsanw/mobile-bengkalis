@@ -26,4 +26,5 @@ Route::get('/hapus/{id}', 'Backend\OpdsController@hapus');
 //api siterubuk
 Route::post('/storepermohonan', 'Api\AppSiterubukController@storepermohonan');
 Route::post('/opd', 'Api\AppSiterubukController@opd');
+Route::post('/datainformasi', 'Api\AppSiterubukController@datainformasi');
 

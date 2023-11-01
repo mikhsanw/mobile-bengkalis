@@ -56,6 +56,9 @@
 		
     </div>
 	{!! Form::hidden('table-list', 'datatable', array('id' => 'table-list')) !!}
+	<div class="col-md-12">
+        <img src="{{$data->file->url_stream.'?t='.time() ?? '#'}}" style="background: transparent url({{asset('backend/img/loading.gif')}}) no-repeat center; width: 100%"/>
+    </div>
 </div>
 <div class="row">
 	<div class="col-md-12">

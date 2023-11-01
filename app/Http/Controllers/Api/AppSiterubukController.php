@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Model\Opd;
 use App\Model\Permohonan;
+use Illuminate\Http\File;
+use App\Model\DataInformasi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -44,17 +46,27 @@ class AppSiterubukController extends Controller
                 $image = str_replace($replace, '', $image_64);
                 $image = str_replace(' ', '+', $image);
                 $image = base64_decode($image);
-
-                $data->file()->create([
-                    'name'                  => 'fileidentitas',
-                    'data'                      =>  [
-                        'disk'      => config('filesystems.default'),
-                        'target'    => Storage::putFile('permohonan/fileidentitas/'.date('Y').'/'.date('m').'/'.date('d'),new File($image)),
-                    ]
-                ]);
+                $imageName = 'permohonan/fileidentitas/'.date('Y').'/'.date('m').'/'.date('d').'/'.uniqid().'.'.$extension;
+                if(Storage::put($imageName,$image)){
+                    $data->file()->create([
+                        'name'                  => 'fileidentitas',
+                        'data'                      =>  [
+                            'disk'      => config('filesystems.default'),
+                            'target'    => $imageName,
+                        ]
+                    ]);
+                };
             }
             $respon=['status'=>true, 'pesan'=>'Permohonan berhasil disimpan'];
         }
         return $respon;
+    }
+
+    public function datainformasi(Request $request){
+        $page = ($request->page ?? 1)-1;
+        $limit = 5;
+        $offset = $page * $limit;
+        $data = DataInformasi::where('nama','LIKE','%'.$request->cari.'%')->latest()->offset($offset)->limit($limit)->get();
+        return response()->json($data);
     }
 }
