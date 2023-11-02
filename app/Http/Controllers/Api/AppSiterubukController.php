@@ -66,7 +66,24 @@ class AppSiterubukController extends Controller
         $page = ($request->page ?? 1)-1;
         $limit = 5;
         $offset = $page * $limit;
-        $data = DataInformasi::where('nama','LIKE','%'.$request->cari.'%')->latest()->offset($offset)->limit($limit)->get();
+        $values = DataInformasi::where('nama','LIKE','%'.$request->cari.'%')->latest()->offset($offset)->limit($limit)->get();
+        $data = $values->map(function($val) {
+            return [
+                'id' => $val->id,
+                'nama' => $val->nama,
+                'opd' => $val->opd->nama,
+                'view' => $val->view,
+                'dokumen' => $val->file->url_stream,
+                'created_at' => $val->created_at
+            ];
+        });
         return response()->json($data);
+    }
+
+    public function tentang(){
+        $data = [
+            'data'=>"<p>Created By Diskominfotik</p><br>tessssss",
+        ];
+        return $data;
     }
 }
