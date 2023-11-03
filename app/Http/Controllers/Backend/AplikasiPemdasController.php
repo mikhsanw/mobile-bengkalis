@@ -59,6 +59,7 @@ class AplikasiPemdasController extends Controller
             $validator=Validator::make($request->all(), [
 					'nama' => 'required|'.config('master.regex.json'),
 					'keterangan' => 'required|'.config('master.regex.json'),
+					'link' => 'required|'.config('master.regex.json'),
 					'opd_id' => 'required|'.config('master.regex.json'),
 					'jenis' => 'required',
                 ]);
@@ -127,7 +128,8 @@ class AplikasiPemdasController extends Controller
 					'keterangan' => 'required|'.config('master.regex.json'),
 					'opd_id' => 'required|'.config('master.regex.json'),
                     'jenis' => 'required',
-            ]);
+					'link' => 'required|'.config('master.regex.json'),
+                ]);
             if ($validator->fails()) {
                 $response=['status'=>FALSE, 'pesan'=>$validator->messages()];
             }

@@ -11,7 +11,11 @@
 			{!! Form::text('keterangan', null, array('id' => 'keterangan', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
 		</p>
 		<p>
-			{!! Form::label('opd_id', 'Pilih Opd_id', ['class'=>'control-label']) !!}
+			{!! Form::label('link', 'Masukkan Link', ['class'=>'control-label']) !!}
+			{!! Form::text('link', null, array('id' => 'link', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
+		</p>
+		<p>
+			{!! Form::label('opd_id', 'Pilih Opd', ['class'=>'control-label']) !!}
 			{!! Form::select('opd_id',$opd_id, null, array('id' => 'opd_id', 'class' => 'form-control select2', 'placeholder'=>'Pilih')) !!}
 		</p>
         <p>

@@ -14,6 +14,7 @@ $(document).ready(function() {
 				{ data: 'nama' },
 				{ data: 'keterangan' },
 				{ data: 'opd.nama' },
+				{ data: 'link' },
 
 				{ data: 'action', orderable: false, searchable: false}
 		    ]

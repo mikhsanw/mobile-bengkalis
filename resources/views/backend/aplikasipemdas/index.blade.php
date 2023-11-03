@@ -16,7 +16,7 @@
 					<th class="text-center">Nama</th>
 					<th class="text-center">Keterangan</th>
 					<th class="text-center">Opd</th>
-
+					<th class="text-center">Link</th>
 					<th width="50px" class="text-center" tabindex="0" rowspan="1" colspan="1">Aksi</th>
 				</tr>
 			</thead>

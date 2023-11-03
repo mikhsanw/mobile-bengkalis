@@ -18,6 +18,7 @@ class CreateAplikasiPemdasTable extends Migration
 			$table->string('nama')->nullable();
 			$table->string('keterangan')->nullable();
 			$table->string('jenis')->nullable();
+			$table->string('link')->nullable();
 			$table->foreignUuid('opd_id')->nullable()->constrained();
             $table->timestamps();
             $table->softDeletes();
