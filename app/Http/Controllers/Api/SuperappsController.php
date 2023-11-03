@@ -38,6 +38,7 @@ class SuperappsController extends Controller
                     'nama' => $val->nama,
                     'keterangan' => $val->keterangan,
                     'opd' => $val->opd->nama,
+                    'link' => $val->link,
                     'foto' => $val->file->url_stream,
                     'jenis' => $val->jenis
                 ];
@@ -57,6 +58,7 @@ class SuperappsController extends Controller
                     'nama' => $val->nama,
                     'keterangan' => $val->keterangan,
                     'opd' => $val->opd->nama,
+                    'link' => $val->link,
                     'foto' => $val->file->url_stream,
                     'jenis' => $val->jenis
                 ];
