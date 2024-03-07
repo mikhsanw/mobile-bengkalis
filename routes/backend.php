@@ -116,5 +116,24 @@ Route::group(['prefix' => config('master.url.admin')], function () {
 		});
 		Route::resource('datainformasis', 'DataInformasisController');
 
+		Route::prefix('kims')->as('kims')->group(function () {
+			Route::get('/data', 'KimsController@data');
+			Route::get('/hapus/{id}', 'KimsController@hapus');
+			Route::get('/get_kelurahan/{kecamatan_id}', 'KimsController@getKelurahan');
+		});
+		Route::resource('kims', 'KimsController');
+
+		Route::prefix('kegiatankims')->as('kegiatankims')->group(function () {
+			Route::get('/data', 'KegiatanKimsController@data');
+			Route::get('/hapus/{id}', 'KegiatanKimsController@hapus');
+		});
+		Route::resource('kegiatankims', 'KegiatanKimsController');
+		
+		Route::prefix('kimanggota')->as('kimanggota')->group(function () {
+			Route::get('/data', 'KimAnggotaController@data');
+			Route::get('/hapus/{id}', 'KimAnggotaController@hapus');
+		});
+		Route::resource('kimanggota', 'KimAnggotaController');
+
 	});
 });

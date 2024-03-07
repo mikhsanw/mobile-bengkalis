@@ -61,12 +61,14 @@ class File extends Model
 
     public function getUrlStreamAttribute()
     {
-        return asset('file/'.$this->id.'/Document '.config('master.aplikasi.nama')).' '.date('Y-m-d');
+        $name = strtolower(str_replace(' ', '-', 'Document '.config('master.aplikasi.nama').' '.date('Y-m-d')));
+        return asset('file/'.$this->id.'/'.$name.'.'.$this->extension);
     }
-
+    
     public function getUrlDownloadAttribute()
     {
-        return asset('download/'.$this->id.'/Document '.config('master.aplikasi.nama')).' '.date('Y-m-d');
+        $name = strtolower(str_replace(' ', '-', 'Document '.config('master.aplikasi.nama').' '.date('Y-m-d')));
+        return asset('download/'.$this->id.'/'.$name.'.'.$this->extension);
     }
 
     public function getNamaAliasAttribute()

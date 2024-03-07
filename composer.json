@@ -22,6 +22,7 @@
         "intervention/image": "^2.7",
         "irebega/docx-replacer": "^1.1",
         "laravel/framework": "^9.0",
+        "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6.1",

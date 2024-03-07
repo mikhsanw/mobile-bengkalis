@@ -47,7 +47,7 @@ class userController extends Controller
     public function data(Request $request)
     {
         if ($request->ajax()) {
-            $user=User::byLevel();
+            $user=User::byLevel()->where('aksesgrup_id','!=' ,2)->get();
             return Datatables::of($user)->addIndexColumn()
                 ->addColumn('action', function ($data){
                     return '<div class="text-center text-nowrap">
@@ -76,7 +76,7 @@ class userController extends Controller
 
     public function create()
     {
-        $aksesgrup=Aksesgrup::byLevel()->pluck('nama', 'id');
+        $aksesgrup=Aksesgrup::byLevel()->where('id','!=',2)->pluck('nama', 'id');
         return view('backend.user.tambah', compact('aksesgrup'));
     }
 
@@ -108,7 +108,7 @@ class userController extends Controller
     public function edit($id)
     {
         $user=User::find($id);
-        $aksesgrup=Aksesgrup::byLevel()->pluck('nama', 'id');
+        $aksesgrup=Aksesgrup::byLevel()->where('id','!=',2)->pluck('nama', 'id');
         return view('backend.user.ubah', compact('user', 'aksesgrup'));
     }
 

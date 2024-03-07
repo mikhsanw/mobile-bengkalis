@@ -115,4 +115,32 @@ class Help extends Fungsi
         return $ipaddress;
     }
 
+    public static function displayDateTime($updatedAt)
+    {
+        // Parse kolom updated_at menjadi instance Carbon
+        $updatedAt = Carbon::parse($updatedAt);
+
+        // Set locale ke Bahasa Indonesia
+        $updatedAt->setLocale('id');
+
+        // Format tanggal dan waktu dengan hari dan bulan dalam Bahasa Indonesia
+        $dateTimeTerformat = $updatedAt->isoFormat('dddd, D MMMM Y H:mm:ss');
+
+        return $dateTimeTerformat;
+    }
+    
+    public static function shortDateTime($updatedAt)
+    {
+        // Parse kolom updated_at menjadi instance Carbon
+        $updatedAt = Carbon::parse($updatedAt);
+
+        // Set locale ke Bahasa Indonesia
+        $updatedAt->setLocale('id');
+
+        // Format tanggal dan waktu dengan hari dan bulan dalam Bahasa Indonesia
+        $dateTimeTerformat = $updatedAt->isoFormat('D MMM');
+
+        return $dateTimeTerformat;
+    }
+
 }

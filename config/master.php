@@ -11,11 +11,11 @@ return [
     */
 
     'aplikasi' =>   [
-                        'nama'          => 'Selamat Datang',
-                        'singkatan'     => 'SINGKATAN',
-                        'daerah'        => 'PROVINSI RIAU', // HARUS HURUF BESAR
-                        'kota'          => 'Pekanbaru',
-                        'level'         => 'provinsi', // Kabupaten, kota, provinsi (default)
+                        'nama'          => 'Super APP',
+                        'singkatan'     => 'SUPERAPP',
+                        'daerah'        => 'Pemerintah Kabupaten Bengkalis', // HARUS HURUF BESAR
+                        'kota'          => 'Bengkalis',
+                        'level'         => 'Kabupaten', // Kabupaten, kota, provinsi (default)
                         'logo'		    => env('APP_URL').'/backend/img/logo/200.png',
                         'favicon'		=> '/backend/img/logo/50.png',
                         'login_versi'   => 1, // 1,2
@@ -26,6 +26,7 @@ return [
     'level' => [
                     0 => 'Unknown',
                     1 => 'Root',
+                    2 => 'KIM',
     ],
     'url'   =>  [
                     'admin'     => '',
@@ -75,6 +76,14 @@ return [
     'jenis_aplikasi'=>[
         'Layanan Masyarakat' => 'Layanan Masyarakat',
         'Layanan Pemerintah' => 'Layanan Pemerintah',
-    ]
+    ],
+    'level_kim' => [
+        1 => 'Admin',
+        2 => 'Anggota',
+    ],
+    'level_kegiatan_kim' => [
+        1 => 'Kegiatan',
+        2 => 'Pembangunan',
+    ],
     
 ];

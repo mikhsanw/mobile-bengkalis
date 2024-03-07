@@ -29,16 +29,16 @@ class aksesmenuMiddleware
                     if($aksessub->first()){
                         return $next($request);
                     }else{
-                        return new Response(view('layouts.backend.error.403', ['menu'=>$menu]));
+                        return new Response(view('errors.403', ['menu'=>$menu]));
                     }
                 } else {
-                    return new Response(view('layouts.backend.error.503', ['menu'=>$menu]));
+                    return new Response(view('errors.503', ['menu'=>$menu]));
                 }
             }else{
                 return $next($request);
             }
         }else{
-            return new Response(view('layouts.backend.error.403'));
+            return new Response(view('errors.403'));
         }
     }
 }

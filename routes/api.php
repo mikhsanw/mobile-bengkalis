@@ -29,3 +29,14 @@ Route::post('/opd', 'Api\AppSiterubukController@opd');
 Route::post('/datainformasi', 'Api\AppSiterubukController@datainformasi');
 Route::post('/tentang', 'Api\AppSiterubukController@tentang');
 
+
+Route::prefix('kim')->as('kim')->group(function () {
+    Route::post('/login', 'Api\KimController@login');
+    Route::group(['middleware'=>['auth:sanctum']], function () {
+    //api kim bermasa
+        Route::post('/dashboard', 'Api\KimController@dashboard');
+        Route::post('/store_kegiatan', 'Api\KimController@store');
+        Route::post('/kegiatan', 'Api\KimController@getkimkegiatan');
+        Route::post('/tentang', 'Api\KimController@tentang');
+    });
+});
