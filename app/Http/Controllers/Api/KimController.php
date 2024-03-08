@@ -14,15 +14,18 @@ use Illuminate\Support\Facades\Validator;
 class KimController extends Controller
 {
     public function dashboard(Request $request){
-        $keg = KegiatanKim::with('kim')->get();
+        $keg = KegiatanKim::with('kim','file')->get();
         foreach ($keg as $key => $value) {
+            $item=[];
             $item['nama']=$value->nama;
             $item['lokasi']=$value->lokasi;
             $item['tanggal']=Help::displayDateTime($value->tanggal);
             $item['jenis']=config('master.level_kegiatan_kim.'.$value->jenis);
             $item['deskripsi']=$value->deskripsi;
             $item['nama_kim']=$value->kim->nama;
-            $item['file'][]=$value->file->url_stream;
+            foreach($value->file as $key => $img){
+                $item['file'][$key]=$img->url_stream;
+            }
             
             $kegiatan[]=$item;
         }
@@ -84,15 +87,18 @@ class KimController extends Controller
         $offset = $page * $limit;
         $keg = KegiatanKim::with('kim')->where('nama','LIKE','%'.$request->cari.'%')->latest()->offset($offset)->limit($limit)->get();
         foreach ($keg as $key => $value) {
-            $data['nama']=$value->nama;
-            $data['lokasi']=$value->lokasi;
-            $data['tanggal']=Help::shortDateTime($value->tanggal);
-            $data['jenis']=config('master.level_kegiatan_kim.'.$value->jenis);
-            $data['deskripsi']=$value->deskripsi;
-            $data['nama_kim']=$value->kim->nama;
-                $data['file'][]=$value->file->url_stream;
+            $item=[];
+            $item['nama']=$value->nama;
+            $item['lokasi']=$value->lokasi;
+            $item['tanggal']=Help::displayDateTime($value->tanggal);
+            $item['jenis']=config('master.level_kegiatan_kim.'.$value->jenis);
+            $item['deskripsi']=$value->deskripsi;
+            $item['nama_kim']=$value->kim->nama;
+            foreach($value->file as $key => $img){
+                $item['file'][$key]=$img->url_stream;
+            }
             
-            $datas[]=$data;
+            $datas[]=$item;
         }
         return response()->json([
             "status"=>true,
