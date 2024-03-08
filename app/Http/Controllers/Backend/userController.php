@@ -76,7 +76,7 @@ class userController extends Controller
 
     public function create()
     {
-        $aksesgrup=Aksesgrup::byLevel()->where('id','!=',2)->pluck('nama', 'id');
+        $aksesgrup=Aksesgrup::byLevel()->pluck('nama', 'id');
         return view('backend.user.tambah', compact('aksesgrup'));
     }
 
@@ -108,7 +108,7 @@ class userController extends Controller
     public function edit($id)
     {
         $user=User::find($id);
-        $aksesgrup=Aksesgrup::byLevel()->where('id','!=',2)->pluck('nama', 'id');
+        $aksesgrup=Aksesgrup::byLevel()->pluck('nama', 'id');
         return view('backend.user.ubah', compact('user', 'aksesgrup'));
     }
 
