@@ -43,7 +43,7 @@ class KimController extends Controller
                 'icon'=>'business-outline'
                 ]
             ],
-            'kegiatan' => $kegiatan,
+            'kegiatan' => $kegiatan??[],
             'slider' => [asset('KIM.png')]
         ];
         return response()->json([
