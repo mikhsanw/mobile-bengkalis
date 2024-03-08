@@ -80,6 +80,8 @@ class Aksesgrup extends Model
     {
         if (\Auth::user()->level == 1) {
             return $query->latest();
+        }elseif(Auth::user()->level == 2){
+            return $query->where('id','!=',2)->latest();
         } else {
             return $query->where('id','!=',1)->latest();
         }

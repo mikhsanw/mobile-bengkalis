@@ -51,9 +51,8 @@ class User extends Authenticatable
     {
         if (Auth::user()->level == 1) {
             return $query->latest();
-        }elseif(Auth::user()->level == 2){
-            return $query->where('aksesgrup_id','!=',2)->latest();
-        }else {
+        }
+        else {
             return $query->where('aksesgrup_id', '!=', 1)->latest();
         }
     }
