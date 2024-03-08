@@ -61,7 +61,7 @@ class KimAnggotaController extends Controller
         }
         else {
             $request->request->add(['aksesgrup_id'=>2]);
-            $request->request->add(['level'=>0]);
+            $request->request->add(['level'=>2]);
 
             if ($user = User::create($request->all())) {
                 $this->model::create(['level_kim'=>$request->level_kim,'user_id'=>$user->id,'kim_id'=>$request->kim_id]);
