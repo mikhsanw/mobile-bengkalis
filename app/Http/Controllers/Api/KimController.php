@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Model\foto;
 use App\Helpers\Help;
+use App\Model\Berita;
 use App\Model\KegiatanKim;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,21 +16,43 @@ use Illuminate\Support\Facades\Validator;
 class KimController extends Controller
 {
     public function dashboard(Request $request){
-        $keg = KegiatanKim::with('kim','file')->get();
-        foreach ($keg as $key => $value) {
-            $item=[];
-            $item['nama']=$value->nama;
-            $item['lokasi']=$value->lokasi;
-            $item['tanggal']=Help::displayDateTime($value->tanggal);
-            $item['jenis']=config('master.level_kegiatan_kim.'.$value->jenis);
-            $item['deskripsi']=$value->deskripsi;
-            $item['nama_kim']=$value->kim->nama;
-            foreach($value->file as $key => $img){
-                $item['file'][$key]=$img->url_stream;
-            }
+        // $keg = KegiatanKim::with('kim','file')->get();
+        // foreach ($keg as $key => $value) {
+        //     $item=[];
+        //     $item['nama']=$value->nama;
+        //     $item['lokasi']=$value->lokasi;
+        //     $item['tanggal']=Help::displayDateTime($value->tanggal);
+        //     $item['jenis']=config('master.level_kegiatan_kim.'.$value->jenis);
+        //     $item['deskripsi']=$value->deskripsi;
+        //     $item['nama_kim']=$value->kim->nama;
+        //     foreach($value->file as $key => $img){
+        //         $item['file'][$key]=$img->url_stream;
+        //     }
             
-            $kegiatan[]=$item;
-        }
+        //     $kegiatan[]=$item;
+        // }
+
+        //berita
+        $beritas = Berita::limit(10)->get();
+        $databerita = $beritas->map(function($berita) {
+            return [
+                'id' => $berita->id,
+                'nama' => $berita->nama,
+                'isi' => $berita->isi,
+                'tanggal' => $berita->tanggal,
+                'view' => $berita->view,
+                'foto' => $berita->file->url_stream,
+            ];
+        });
+        
+        //slider
+        $slides[]['file']=asset('KIM.png');
+        $slide = foto::limit(10)->get();
+        foreach($slide as $val){
+            $item=[];
+            $item['file']=$val->file->url_stream;
+            $slides[]= $item; 
+        };
         $data = [
             'menu' => [
                 [
@@ -46,8 +70,8 @@ class KimController extends Controller
                 'icon'=>'business-outline'
                 ]
             ],
-            'kegiatan' => $kegiatan??[],
-            'slider' => [asset('KIM.png')]
+            'berita' => $databerita??[],
+            'slider' => $slides??[]
         ];
         return response()->json([
             "status"=>true,
@@ -90,7 +114,7 @@ class KimController extends Controller
             $item=[];
             $item['nama']=$value->nama;
             $item['lokasi']=$value->lokasi;
-            $item['tanggal']=Help::displayDateTime($value->tanggal);
+            $item['tanggal']=Help::shortDateTime($value->tanggal);
             $item['jenis']=config('master.level_kegiatan_kim.'.$value->jenis);
             $item['deskripsi']=$value->deskripsi;
             $item['nama_kim']=$value->kim->nama;
@@ -142,9 +166,25 @@ class KimController extends Controller
                     ]);
                 };
             }
-            $respon=['status'=>true, 'pesan'=>'Data berhasil disimpan'];
+            $respon=["status"=>true,"message"=>"Data ditemukan", 'pesan'=>'Data berhasil disimpan'];
         }
         return $respon;
+    }
+
+    public function berita(request $req)
+    {
+        $beritas = Berita::limit(10)->get();
+        $data = $beritas->map(function($berita) {
+            return [
+                'id' => $berita->id,
+                'nama' => $berita->nama,
+                'isi' => $berita->isi,
+                'tanggal' => $berita->tanggal,
+                'view' => $berita->view,
+                'foto' => $berita->file->url_stream,
+            ];
+        });
+        return response()->json(['status'=>true,'data' => $data], 200);
     }
 
     public function tentang(Request $request){
