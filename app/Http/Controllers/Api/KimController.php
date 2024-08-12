@@ -16,21 +16,21 @@ use Illuminate\Support\Facades\Validator;
 class KimController extends Controller
 {
     public function dashboard(Request $request){
-        // $keg = KegiatanKim::with('kim','file')->get();
-        // foreach ($keg as $key => $value) {
-        //     $item=[];
-        //     $item['nama']=$value->nama;
-        //     $item['lokasi']=$value->lokasi;
-        //     $item['tanggal']=Help::displayDateTime($value->tanggal);
-        //     $item['jenis']=config('master.level_kegiatan_kim.'.$value->jenis);
-        //     $item['deskripsi']=$value->deskripsi;
-        //     $item['nama_kim']=$value->kim->nama;
-        //     foreach($value->file as $key => $img){
-        //         $item['file'][$key]=$img->url_stream;
-        //     }
+        $keg = KegiatanKim::with('kim','file')->get();
+        foreach ($keg as $key => $value) {
+            $item=[];
+            $item['nama']=$value->nama;
+            $item['lokasi']=$value->lokasi;
+            $item['tanggal']=Help::displayDateTime($value->tanggal);
+            $item['jenis']=config('master.level_kegiatan_kim.'.$value->jenis);
+            $item['deskripsi']=$value->deskripsi;
+            $item['nama_kim']=$value->kim->nama;
+            foreach($value->file as $key => $img){
+                $item['file'][$key]=$img->url_stream;
+            }
             
-        //     $kegiatan[]=$item;
-        // }
+            $kegiatan[]=$item;
+        }
 
         //berita
         $beritas = Berita::limit(10)->get();
@@ -53,6 +53,7 @@ class KimController extends Controller
             $item['file']=$val->file->url_stream;
             $slides[]= $item; 
         };
+        
         $data = [
             'menu' => [
                 [
@@ -70,6 +71,7 @@ class KimController extends Controller
                 'icon'=>'business-outline'
                 ]
             ],
+            'kegiatan' => $kegiatan??[],
             'berita' => $databerita??[],
             'slider' => $slides??[]
         ];
