@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Model\foto;
 use App\Helpers\Help;
 use App\Model\Berita;
+use App\Model\Product;
 use App\Model\KegiatanKim;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Validator;
 class KimController extends Controller
 {
     public function dashboard(Request $request){
-        $keg = KegiatanKim::with('kim','file')->get();
+        $keg = KegiatanKim::with('kim','file')->take(10)->get();
         foreach ($keg as $key => $value) {
             $item=[];
             $item['nama']=$value->nama;
@@ -32,6 +33,21 @@ class KimController extends Controller
             $kegiatan[]=$item;
         }
 
+        $prods = Product::with('kim')->take(10)->get();
+        foreach ($prods as $key => $prod) {
+            $item=[];
+            $item['nama']=$prod->nama;
+            $item['harga']=Help::currency($prod->harga);
+            $item['jenis']=config('master.product.'.$prod->jenis);
+            $item['deskripsi']=$prod->deskripsi;
+            $item['nama_kim']=$prod->kim->nama;
+            foreach($prod->file as $key => $img){
+                $item['file'][$key]=$img->url_stream;
+            }
+            
+            $products[]=$item;
+        }
+
         //berita
         $beritas = Berita::limit(10)->get();
         $databerita = $beritas->map(function($berita) {
@@ -39,7 +55,7 @@ class KimController extends Controller
                 'id' => $berita->id,
                 'nama' => $berita->nama,
                 'isi' => $berita->isi,
-                'tanggal' => $berita->tanggal,
+                'tanggal' => Help::shortDateTime($berita->tanggal),
                 'view' => $berita->view,
                 'foto' => $berita->file->url_stream,
             ];
@@ -53,25 +69,33 @@ class KimController extends Controller
             $item['file']=$val->file->url_stream;
             $slides[]= $item; 
         };
-        
+
         $data = [
             'menu' => [
                 [
                 'id'=>1,
                 'nama'=>'Kegiatan',
-                'link'=>'kegiatan',
+                'link'=>'formkegiatan',
                 'color'=>'primary',
                 'icon'=>'people-outline'
                 ],
                 [
                 'id'=>2,
                 'nama'=>'Pembangunan',
-                'link'=>'pembangunan',
+                'link'=>'formkegiatan',
                 'color'=>'danger',
                 'icon'=>'business-outline'
+                ],
+                [
+                'id'=>3,
+                'nama'=>'Produk',
+                'link'=>'formproduct',
+                'color'=>'warning',
+                'icon'=>'bag-handle-outline'
                 ]
             ],
             'kegiatan' => $kegiatan??[],
+            'produk' => $products??[],
             'berita' => $databerita??[],
             'slider' => $slides??[]
         ];
@@ -173,6 +197,77 @@ class KimController extends Controller
         return $respon;
     }
 
+    public function getJenisProduk(){
+        $jenis = config('master.jenis_product');
+        return response()->json($jenis,200);
+    }
+    
+    public function getproduct(Request $request)
+    {
+        $page = ($request->page ?? 1)-1;
+        $limit = 5;
+        $offset = $page * $limit;
+        $keg = Product::with('kim')->where('nama','LIKE','%'.$request->cari.'%')->latest()->offset($offset)->limit($limit)->get();
+        foreach ($keg as $key => $value) {
+            $item=[];
+            $item['nama']=$value->nama;
+            $item['harga']=$this->help->currency($value->harga);
+            $item['jenis']=config('master.product.'.$value->jenis);
+            $item['deskripsi']=$value->deskripsi;
+            $item['nama_kim']=$value->kim->nama;
+            foreach($value->file as $key => $img){
+                $item['file'][$key]=$img->url_stream;
+            }
+            
+            $datas[]=$item;
+        }
+        return response()->json([
+            "status"=>true,
+            "message"=>"Data ditemukan",
+            "data"=>$datas
+        ]);
+    }
+
+    public function storeproduct(Request $request)
+    {
+        $validator=Validator::make($request->all(), [
+                'nama' => 'required|'.config('master.regex.json'),
+                'harga' => 'required|'.config('master.regex.number'),
+                'jenis' => 'required|'.config('master.regex.json'),
+                'deskripsi' => 'required|'.config('master.regex.json'),
+                'file' => 'required',
+            ]);
+        if ($validator->fails()) {
+            $respon=['status'=>false, 'pesan'=>$validator->messages()];
+        }
+        else {
+            $request->request->add(['kim_id'=>$request->user()->kim_anggota->kim_id]);
+            $request->request->add(['kim_anggota_id'=>$request->user()->kim_anggota->id]);
+            
+            $data = Product::create($request->all());
+            foreach($request->file as $key => $item){
+                $image_64 = $item; //your base64 encoded data
+                $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];
+                $replace = substr($image_64, 0, strpos($image_64, ',')+1);
+                $image = str_replace($replace, '', $image_64);
+                $image = str_replace(' ', '+', $image);
+                $image = base64_decode($image);
+                $imageName = 'permohonan/file/'.date('Y').'/'.date('m').'/'.date('d').'/'.uniqid().'.'.$extension;
+                if(Storage::put($imageName,$image)){
+                    $data->file()->create([
+                        'name'                  => $key,
+                        'data'                      =>  [
+                            'disk'      => config('filesystems.default'),
+                            'target'    => $imageName,
+                        ]
+                    ]);
+                };
+            }
+            $respon=["status"=>true,"message"=>"Data ditemukan", 'pesan'=>'Data berhasil disimpan'];
+        }
+        return $respon;
+    }
+    
     public function berita(request $req)
     {
         $beritas = Berita::limit(10)->get();

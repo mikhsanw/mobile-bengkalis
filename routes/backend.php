@@ -17,7 +17,7 @@ Route::get(config('master.aplikasi.author').'/{folder}/{link}/{kode}/{file}', 'j
 Route::get('/home', 'berandaController@index')->name('beranda.home');
 Route::group(['prefix' => config('master.url.admin')], function () {
 	// dashboard - beranda
-	// Route::get('/', 'berandaController@index')->name('beranda.index');
+	Route::get('/', 'berandaController@index')->name('beranda.index');
 
 	// Url Public
     Route::group(['middleware' => ['throttle:5']], function () {
@@ -134,6 +134,12 @@ Route::group(['prefix' => config('master.url.admin')], function () {
 			Route::get('/hapus/{id}', 'KimAnggotaController@hapus');
 		});
 		Route::resource('kimanggota', 'KimAnggotaController');
+
+		Route::prefix('products')->as('products')->group(function () {
+			Route::get('/data', 'ProductsController@data');
+			Route::get('/hapus/{id}', 'ProductsController@hapus');
+		});
+		Route::resource('products', 'ProductsController');
 
 	});
 });

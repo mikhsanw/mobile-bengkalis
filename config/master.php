@@ -85,5 +85,11 @@ return [
         1 => 'Kegiatan',
         2 => 'Pembangunan',
     ],
+    'jenis_product' => [
+        1 => 'Makanan',
+        2 => 'Minuman',
+        3 => 'Pakaian',
+        4 => 'lainnya'
+    ],
     
 ];

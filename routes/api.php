@@ -36,8 +36,10 @@ Route::prefix('kim')->as('kim')->group(function () {
     Route::post('/tentang', 'Api\KimController@tentang');
     Route::post('/berita', 'Api\KimController@berita');
     Route::post('/kegiatan', 'Api\KimController@getkimkegiatan');
+    Route::post('/product', 'Api\KimController@getproduct');
+    Route::post('/jenis_produk', 'Api\KimController@getJenisProduk');
     Route::group(['middleware'=>['auth:sanctum']], function () {
-    //api kim bermasa
         Route::post('/store_kegiatan', 'Api\KimController@store');
+        Route::post('/store_product', 'Api\KimController@storeproduct');
     });
 });

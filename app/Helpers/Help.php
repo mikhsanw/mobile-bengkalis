@@ -143,4 +143,9 @@ class Help extends Fungsi
         return $dateTimeTerformat;
     }
 
+    public static function currency($number, string $currency = 'Rp'): string
+    {
+        return $currency . ' ' . number_format($number, 0, ',', '.');
+    }
+
 }
