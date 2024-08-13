@@ -207,11 +207,11 @@ class KimController extends Controller
         $page = ($request->page ?? 1)-1;
         $limit = 5;
         $offset = $page * $limit;
-        $keg = Product::with('kim')->where('nama','LIKE','%'.$request->cari.'%')->latest()->offset($offset)->limit($limit)->get();
-        foreach ($keg as $key => $value) {
+        $prod = Product::with('kim')->where('nama','LIKE','%'.$request->cari.'%')->latest()->offset($offset)->limit($limit)->get();
+        foreach ($prod as $key => $value) {
             $item=[];
             $item['nama']=$value->nama;
-            $item['harga']=$this->help->currency($value->harga);
+            $item['harga']=Help::currency($value->harga);
             $item['jenis']=config('master.product.'.$value->jenis);
             $item['deskripsi']=$value->deskripsi;
             $item['nama_kim']=$value->kim->nama;
