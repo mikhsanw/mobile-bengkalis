@@ -22,10 +22,10 @@ class KegiatanKimsController extends Controller
             return Datatables::of($data)->addIndexColumn()
                 ->addColumn('action', function($q){
                     return (Auth::user()->kim_anggota)?'<div style="text-align: center;">
-                    <a class="edit ubah" data-toggle="tooltip" data-placement="top" title="Edit" '.$this->kode.'-id="{{ $id }}" href="#edit-{{ $id }}">
+                    <a class="edit ubah" data-toggle="tooltip" data-placement="top" title="Edit" '.$this->kode.'-id="{{ $q->id }}" href="#edit-{{ $q->id }}">
                         <i class="fa fa-edit text-warning"></i>
                     </a>&nbsp; &nbsp;
-                    <a class="delete hidden-xs hidden-sm hapus" data-toggle="tooltip" data-placement="top" title="Delete" href="#hapus-{{ $id }}" '.$this->kode.'-id="{{ $id }}">
+                    <a class="delete hidden-xs hidden-sm hapus" data-toggle="tooltip" data-placement="top" title="Delete" href="#hapus-{{ $q->id }}" '.$this->kode.'-id="{{ $q->id }}">
                         <i class="fa fa-trash text-danger"></i>
                     </a>
                 </div>':'';
