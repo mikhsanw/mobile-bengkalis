@@ -9,9 +9,9 @@ $(document).ready(function(){
 	$(".goLogin").click(function(e){
 		$('.form-group').removeClass('has-error');
 		var password = $("#password").val();
-		var username = $("#username").val();
+		var login = $("#login").val();
 		var _token = $("[name='_token']").val();
-		var dataString = { 'username': username.replace(/\s/g, ''), 'password': $.base64.encode(password), '_token': _token};
+		var dataString = { 'login': login.replace(/\s/g, ''), 'password': $.base64.encode(password), '_token': _token};
 		$.ajax({
 			type: "POST",
 			url: "{{ url('pengguna/masuk') }}",
@@ -19,7 +19,7 @@ $(document).ready(function(){
 			dataType: 'json',
 			cache: false,
 			beforeSend: function(){
-				$(".username,.password,.goLogin").prop("disabled", "disabled");
+				$(".login,.password,.goLogin").prop("disabled", "disabled");
 				$(".goLogin").val('Connecting...');
                 $(".loading").show();
                 $(".fa-sign-in").hide();
@@ -35,7 +35,7 @@ $(document).ready(function(){
 					},1000);
 				}else{
 					$(".pesan,.fa-sign-in").show();
-					$(".username,.password,.goLogin").prop("disabled", false);
+					$(".login,.password,.goLogin").prop("disabled", false);
 					$.each(data.pesan, function(i, item) {
 						$('#'+i).closest('.form-group').addClass('has-error').shake();
 						$('#'+i).focus();

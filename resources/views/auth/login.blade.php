@@ -19,8 +19,8 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text bg-transparent"><i class="ti-user"></i></span>
 											</div>
-											<input type="text" class="form-control pl-15 bg-transparent @error('username') is-invalid @enderror" placeholder="Username" id="username" name="username" value="{{config('master.tes_login.uname')}}" required autocomplete="username" autofocus>
-                                            @error('username')
+											<input type="text" class="form-control pl-15 bg-transparent @error('login') is-invalid @enderror" placeholder="Email / Username" id="login" name="login" required autocomplete="login" autofocus>
+                                            @error('login')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -32,7 +32,7 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text  bg-transparent"><i class="ti-lock"></i></span>
 											</div>
-											<input type="password" class="form-control pl-15 bg-transparent @error('password') is-invalid @enderror" value="{{config('master.tes_login.pwd')}}" placeholder="Password" id="password" name="password" required autocomplete="current-password">
+											<input type="password" class="form-control pl-15 bg-transparent @error('password') is-invalid @enderror" placeholder="Password" id="password" name="password" required autocomplete="current-password">
                                             @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

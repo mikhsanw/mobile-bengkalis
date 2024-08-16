@@ -46,7 +46,7 @@ class KimAnggotaController extends Controller
     public function create()
     {
         $data = [
-            'kim_id'  => Kim::pluck('nama', 'id'),
+            'kim_id'  => Kim::byLevel()->pluck('nama', 'id'),
         ];
         return view('backend.'.$this->kode.'.tambah',$data);
     }
@@ -84,7 +84,7 @@ class KimAnggotaController extends Controller
     {
         $data = [
             'data'=>$this->model::find($id),
-            'kim'=>Kim::pluck('nama','id'),
+            'kim'=>Kim::byLevel()->pluck('nama','id'),
         ];
         return view('backend.'.$this->kode.'.ubah', $data);
     }

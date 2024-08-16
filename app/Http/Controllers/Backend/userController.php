@@ -17,24 +17,49 @@ class userController extends Controller
 {
     public function masuk(Request $request)
     {
-        $validator=Validator::make($request->all(), [
-            'username'=>'required', 'password'=>'required',
+        $loginField = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $userdata = [
+            $loginField => $request->input('login'),
+            'password' => base64_decode($request->input('password'))
+        ];
+        $validator=Validator::make($userdata, [
+            $loginField=>'required', 'password'=>'required',
         ]);
         if ($validator->fails()) {
-            $response=['status'=>FALSE, 'pesan'=>$validator->messages()];
-        }
-        else {
-            $userdata=['username'=>$request->input('username'), 'password'=>base64_decode($request->input('password'))];
-            if (Auth::attempt($userdata, $request->remember)) {
-                if ($user=User::whereUsername($request->input('username'))->first()) {
-                    $user->update(['remember_token'=>$request->_token]);
-                    Loginlog::create(['username'=>$request->input('username'), 'ip'=>(new Help)->alamatIp()]);
-                    $response=['status'=>TRUE, 'pesan'=>['msg'=>'Berhasil login']];
+            $response=[
+                'status'=>FALSE, 
+                'pesan'=>$validator->messages()
+            ];
+        }else if(User::where(['email'=>$request->email,'level'=>2])->whereHas('kim_anggota',fn($q)=>$q->where('level',2))->first()){
+            $response=[
+                'status'=>FALSE,
+                'pesan'=>['msg'=>'Anda bukan admin']
+            ];
+        } else {
+            if (Auth::attempt($userdata, $request->filled('remember'))) {
+                $user = User::where($loginField, $request->input('login'))->first();
+                
+                if ($user) {
+                    $user->update(['remember_token' => $request->_token]);
+                    Loginlog::create([
+                        'username' => $user->username,
+                        'ip' => (new Help)->alamatIp()
+                    ]);
+
+                    $response = [
+                        'status' => true,
+                        'pesan' => ['msg' => 'Berhasil login']
+                    ];
+
                 }
+            }else{
+                // If authentication fails
+                $response = [
+                    'status' => false,
+                    'pesan' => ['msg' => 'Username atau password salah']
+                ];
             }
-            else {
-                $response=["status"=>FALSE, "pesan"=>['msg'=>'Gagal Login, Username atau Password salah!!']];
-            }
+
         }
         return response()->json($response);
     }
@@ -47,7 +72,7 @@ class userController extends Controller
     public function data(Request $request)
     {
         if ($request->ajax()) {
-            $user=User::byLevel()->where('aksesgrup_id','!=' ,2)->get();
+            $user=User::byLevel()->get();
             return Datatables::of($user)->addIndexColumn()
                 ->addColumn('action', function ($data){
                     return '<div class="text-center text-nowrap">

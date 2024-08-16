@@ -2,9 +2,11 @@
 @push('title',ucwords(strtolower($halaman->nama)))
 @push('header',ucwords(strtolower($halaman->nama)))
 @push('tombol')
+@if(\Auth::user()->kim_anggota)
 <button class="waves-effect waves-light btn bg-gradient-primary text-white py-2 px-3 tambah">
 	Tambah
 </button>
+@endif
 @endpush
 @section('content')
 <div class="panel-container show">

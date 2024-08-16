@@ -12,19 +12,15 @@
 		</p>
 		<p>
 			{!! Form::label('tanggal', 'Masukkan Tanggal', ['class'=>'control-label']) !!}
-			{!! Form::string('tanggal', null, array('id' => 'tanggal', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
+			{!! Form::datetimeLocal('tanggal', null, array('id' => 'tanggal', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
 		</p>
 		<p>
 			{!! Form::label('jenis', 'Masukkan Jenis', ['class'=>'control-label']) !!}
-			{!! Form::string('jenis', null, array('id' => 'jenis', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
+			{!! Form::select('jenis',config('master.level_kegiatan_kim'), null, array('id' => 'jenis', 'class' => 'form-control','placeholder'=>'Pilih', 'autocomplete' => 'off')) !!}
 		</p>
 		<p>
 			{!! Form::label('deskripsi', 'Masukkan Deskripsi', ['class'=>'control-label']) !!}
-			{!! Form::string('deskripsi', null, array('id' => 'deskripsi', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
-		</p>
-		<p>
-			{!! Form::label('kim_id', 'Pilih Kim_id', ['class'=>'control-label']) !!}
-			{!! Form::select('kim_id',$kim_id, null, array('id' => 'kim_id', 'class' => 'form-control select2', 'placeholder'=>'Pilih')) !!}
+			{!! Form::textarea('deskripsi', null, array('id' => 'deskripsi', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
 		</p>
 
 
@@ -60,4 +56,8 @@
         height: 200,
         dialogsInBody: true
     });
+	//select2
+	$(".select2").select2({
+        allowClear: true,
+	});
 </script>

@@ -3,9 +3,10 @@
 namespace App\Model;
 
 use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class KegiatanKim extends Model
 {
@@ -31,5 +32,14 @@ class KegiatanKim extends Model
 	public function file()
     {
         return $this->morphMany(File::class, 'morph');
+    }
+
+    public function scopeByLevelKim($query)
+    {
+        if (isset(Auth::user()->kim_anggota->level_kim) && Auth::user()->kim_anggota->level_kim == 1) {
+            return $query->where('kim_id',Auth::user()->kim_anggota->kim_id)->latest();
+        }else{
+            return $query->latest();
+        }
     }
 }

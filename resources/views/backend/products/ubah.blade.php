@@ -11,19 +11,11 @@
 		</p>
 		<p>
 			{!! Form::label('harga', 'Masukkan Harga', ['class'=>'control-label']) !!}
-			{!! Form::text('harga', $data->harga, array('id' => 'harga', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
+			{!! Form::number('harga', $data->harga, array('id' => 'harga', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
 		</p>
 		<p>
 			{!! Form::label('jenis', 'Masukkan Jenis', ['class'=>'control-label']) !!}
-			{!! Form::string('jenis', $data->jenis, array('id' => 'jenis', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
-		</p>
-		<p>
-			{!! Form::label('kim_id', 'Pilih Kim_id', ['class'=>'control-label']) !!}
-			{!! Form::select('kim_id',$kim_id, $data->kim_id, array('id' => 'kim_id', 'class' => 'form-control select2', 'placeholder'=>'Pilih')) !!}
-		</p>
-		<p>
-			{!! Form::label('kim_anggota_id', 'Pilih Kim_anggota_id', ['class'=>'control-label']) !!}
-			{!! Form::select('kim_anggota_id',$kim_anggota_id, $data->kim_anggota_id, array('id' => 'kim_anggota_id', 'class' => 'form-control select2', 'placeholder'=>'Pilih')) !!}
+			{!! Form::select('jenis',config('master.jenis_product'), $data->jenis, array('id' => 'jenis', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
 		</p>
 
     </div>

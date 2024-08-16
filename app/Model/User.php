@@ -50,7 +50,9 @@ class User extends Authenticatable
     public function scopeByLevel($query)
     {
         if (Auth::user()->level == 1) {
-            return $query->latest();
+            return $query->where('aksesgrup_id','!=' ,2)->latest();
+        }elseif(Auth::user()->level == 2){
+            return $query->whereIn('aksesgrup_id', [2,3])->latest();
         }
         else {
             return $query->where('aksesgrup_id', '!=', 1)->latest();
