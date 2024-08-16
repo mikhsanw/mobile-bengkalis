@@ -24,10 +24,10 @@ class KegiatanKimsController extends Controller
                     $id = $q->id;
                     $kode = $this->kode;
                     return (Auth::user()->kim_anggota)?'<div style="text-align: center;">
-                <a class="edit ubah" data-toggle="tooltip" data-placement="top" title="Edit" data-id="' . $id . '" href="#edit-' . $id . '">
+                <a class="edit ubah" data-toggle="tooltip" data-placement="top" title="Edit" '.$kode.'-id="' . $id . '" href="#edit-' . $id . '">
                     <i class="fa fa-edit text-warning"></i>
                 </a>&nbsp; &nbsp;
-                <a class="delete hidden-xs hidden-sm hapus" data-toggle="tooltip" data-placement="top" title="Delete" data-id="' . $id . '" href="#hapus-' . $id . '">
+                <a class="delete hidden-xs hidden-sm hapus" data-toggle="tooltip" data-placement="top" title="Delete" '.$kode.'-id="' . $id . '" href="#hapus-' . $id . '">
                     <i class="fa fa-trash text-danger"></i>
                 </a>
             </div>':'';
