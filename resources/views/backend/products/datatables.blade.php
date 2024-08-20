@@ -16,7 +16,6 @@ $(document).ready(function() {
 				{ data: 'harga' },
 				{ data: 'jenis' },
 				{ data: 'kim.nama' },
-
 				{ data: 'action', orderable: false, searchable: false}
 		    ]
     });

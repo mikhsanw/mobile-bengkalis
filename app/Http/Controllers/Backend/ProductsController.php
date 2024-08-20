@@ -20,7 +20,8 @@ class ProductsController extends Controller
         if ($request->ajax()) {
             $data= $this->model::with('kim','kimanggota')->byLevelKim()->get();
             return Datatables::of($data)->addIndexColumn()
-            ->addColumn('action', function($q){
+                ->editColumn('jenis',fn($q)=>config('master.jenis_product.'.$q->jenis))
+                ->addColumn('action', function($q){
                 $id = $q->id;
                 $kode = $this->kode;
                 return (Auth::user()->kim_anggota)?'<div style="text-align: center;">

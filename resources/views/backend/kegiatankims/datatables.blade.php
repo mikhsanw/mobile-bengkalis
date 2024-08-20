@@ -14,11 +14,7 @@ $(document).ready(function() {
 				{ data: 'nama' },
 				{ data: 'lokasi' },
 				{ data: 'tanggal' },
-				{ data: 'jenis',
-					render: function (data, type, row) {
-						return data==1?`<span class="text-muted">{{config('master.level_kegiatan_kim.1')}}</span>`: `<span class="text-muted">{{config('master.level_kegiatan_kim.2')}}</span>`;
-						} 
-				},
+				{ data: 'jenis' },
 				{ data: 'deskripsi' },
 				{ data: 'kim.nama' },
 

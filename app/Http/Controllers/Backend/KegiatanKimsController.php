@@ -20,6 +20,7 @@ class KegiatanKimsController extends Controller
         if ($request->ajax()) {
             $data= $this->model::with('kim','kim_anggota')->byLevelKim()->get();
             return Datatables::of($data)->addIndexColumn()
+                ->editColumn('jenis',fn($q)=>config('master.level_kegiatan_kim.'.$q->jenis))
                 ->addColumn('action', function($q){
                     $id = $q->id;
                     $kode = $this->kode;
