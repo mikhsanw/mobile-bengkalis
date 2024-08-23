@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Model\foto;
+use App\Model\aplikasi;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 class frontendController extends Controller
 {
     /**
@@ -18,6 +20,14 @@ class frontendController extends Controller
             'slider' => foto::where('status',config('master.status_foto.slider'))->orderBy('id','desc')->take(5)->get(),
         );
         return view('frontend.beranda.index',$data);
+    }
+
+    public function privacy()
+    {   
+        $data = array(
+            'aplikasi' => aplikasi::first(),
+        );
+        return view('frontend.beranda.privacy-policy',$data);
     }
 
     /**
