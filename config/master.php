@@ -11,8 +11,8 @@ return [
     */
 
     'aplikasi' =>   [
-                        'nama'          => 'Super APP',
-                        'singkatan'     => 'SUPERAPP',
+                        'nama'          => 'Kim Bermasa',
+                        'singkatan'     => 'KIM',
                         'daerah'        => 'Pemerintah Kabupaten Bengkalis', // HARUS HURUF BESAR
                         'kota'          => 'Bengkalis',
                         'level'         => 'Kabupaten', // Kabupaten, kota, provinsi (default)
@@ -20,7 +20,7 @@ return [
                         'favicon'		=> '/backend/img/logo/50.png',
                         'login_versi'   => 1, // 1,2
                         'author'        => 'hamba-allah',
-                        'skin'          => 'dark-skin', // dark-skin,light-skin
+                        'skin'          => 'light-skin', // dark-skin,light-skin
                         'color_skin'    => 'theme-primary', // theme-primary,theme-secondary,theme-danger
                     ],
     'level' => [
