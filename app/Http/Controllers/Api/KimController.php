@@ -192,9 +192,9 @@ class KimController extends Controller
                     ]);
                 };
             }
-            $respon=["status"=>true,"message"=>"Data ditemukan", 'pesan'=>'Data berhasil disimpan'];
+            $respon=["status"=>true,'pesan'=>'Data berhasil disimpan'];
         }
-        return $respon;
+        return response()->json($respon??['status'=>false, 'pesan'=>$validator->messages()]);
     }
 
     public function getJenisProduk(){
