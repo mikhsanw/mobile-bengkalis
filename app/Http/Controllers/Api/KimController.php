@@ -183,7 +183,7 @@ class KimController extends Controller
         return response()->json([
             "status"=>true,
             "message"=>"Data ditemukan",
-            "data"=>$datas
+            "data"=>$datas??[]
         ]);
     }
     public function store(Request $request)
@@ -254,7 +254,7 @@ class KimController extends Controller
         return response()->json([
             "status"=>true,
             "message"=>"Data ditemukan",
-            "data"=>$datas
+            "data"=>$datas??[]
         ]);
     }
 
