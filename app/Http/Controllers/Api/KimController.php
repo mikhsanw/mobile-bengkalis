@@ -149,7 +149,7 @@ class KimController extends Controller
     public function getkimkegiatan(Request $request)
     {
         $page = ($request->page ?? 1)-1;
-        $limit = 5;
+        $limit = 10;
         $offset = $page * $limit;
         $keg = KegiatanKim::with('kim')
             ->when($request->id, function ($query) use ($request) {
@@ -235,7 +235,7 @@ class KimController extends Controller
     public function getproduct(Request $request)
     {
         $page = ($request->page ?? 1)-1;
-        $limit = 5;
+        $limit = 10;
         $offset = $page * $limit;
         $prod = Product::with('kim')->where('nama','LIKE','%'.$request->cari.'%')->latest()->offset($offset)->limit($limit)->get();
         foreach ($prod as $key => $value) {
