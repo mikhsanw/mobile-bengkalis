@@ -38,6 +38,7 @@ Route::prefix('kim')->as('kim')->group(function () {
     Route::post('/kegiatan', 'Api\KimController@getkimkegiatan');
     Route::post('/product', 'Api\KimController@getproduct');
     Route::post('/jenis_produk', 'Api\KimController@getJenisProduk');
+    Route::post('/getkim', 'Api\KimController@getKim');
     Route::group(['middleware'=>['auth:sanctum']], function () {
         Route::post('/store_kegiatan', 'Api\KimController@store');
         Route::post('/store_product', 'Api\KimController@storeproduct');

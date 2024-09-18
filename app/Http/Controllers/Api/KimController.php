@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Validator;
 class KimController extends Controller
 {
     public function dashboard(Request $request){
-        $keg = KegiatanKim::with('kim','file')->take(10)->get();
+        $keg = KegiatanKim::with('kim','file')->latest()->take(10)->get();
         foreach ($keg as $key => $value) {
             $item=[];
             $item['nama']=$value->nama;
@@ -33,7 +33,7 @@ class KimController extends Controller
             $kegiatan[]=$item;
         }
 
-        $prods = Product::with('kim')->take(10)->get();
+        $prods = Product::with('kim')->latest()->take(10)->get();
         foreach ($prods as $key => $prod) {
             $item=[];
             $item['nama']=$prod->nama;
@@ -49,7 +49,7 @@ class KimController extends Controller
         }
 
         //berita
-        $beritas = Berita::limit(10)->get();
+        $beritas = Berita::latest()->limit(10)->get();
         $databerita = $beritas->map(function($berita) {
             return [
                 'id' => $berita->id,
@@ -130,12 +130,42 @@ class KimController extends Controller
         }
         return response()->json($response);
     }
+    public function getKim(){
+        $kim = \App\Model\Kim::all();
+        foreach ($kim as $key => $value) {
+            $item=[];
+            $item['id']=$value->id;
+            $item['nama']=$value->nama;
+            $item['alamat']=$value->alamat;
+            $item['wilayah_nama']=$value->wilayah->nama;
+            $kims[]=$item;
+        }
+        return response()->json([
+            "status"=>true,
+            "message"=>"Data ditemukan",
+            "data"=>$kims
+        ]);
+    }
     public function getkimkegiatan(Request $request)
     {
         $page = ($request->page ?? 1)-1;
         $limit = 5;
         $offset = $page * $limit;
-        $keg = KegiatanKim::with('kim')->where('nama','LIKE','%'.$request->cari.'%')->latest()->offset($offset)->limit($limit)->get();
+        $keg = KegiatanKim::with('kim')
+            ->when($request->id, function ($query) use ($request) {
+                $query->where('kim_id', $request->id);
+            }, function ($query) use ($request) {
+                $query->when($request->cari, function ($query) use ($request) {
+                    $query->where('nama', 'LIKE', '%'.$request->cari.'%')
+                        ->orWhereHas('kim', function ($kimQuery) use ($request) {
+                            $kimQuery->where('nama', 'LIKE', '%'.$request->cari.'%');
+                        });
+                });
+            })
+            ->latest()
+            ->offset($offset)
+            ->limit($limit)
+            ->get();
         foreach ($keg as $key => $value) {
             $item=[];
             $item['nama']=$value->nama;
@@ -170,8 +200,8 @@ class KimController extends Controller
             $respon=['status'=>false, 'pesan'=>$validator->messages()];
         }
         else {
-            $request->request->add(['kim_id'=>$request->user()->kim_anggota->kim_id]);
-            $request->request->add(['kim_anggota_id'=>$request->user()->kim_anggota->id]);
+            $request->request->add(['kim_id'=>$request->user()->kim_anggota?->kim_id]);
+            $request->request->add(['kim_anggota_id'=>$request->user()->kim_anggota?->id]);
             
             $data = KegiatanKim::create($request->all());
             foreach($request->file as $key => $item){
