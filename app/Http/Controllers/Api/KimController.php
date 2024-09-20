@@ -16,6 +16,15 @@ use Illuminate\Support\Facades\Validator;
 
 class KimController extends Controller
 {
+    public function app_info(){
+        $data = [
+            'nama_aplikasi'=>'KIM Bermasa',
+            'version'=>'1.0.2',
+            'id_ps'=>'kim.kimbermasa.bengkalis',
+            'keterangan'=>'Yukk segera update aplikasi KIM Bermasa-mu sekarang.'
+        ];
+        return response()->json($data);
+    }
     public function dashboard(Request $request){
         $keg = KegiatanKim::with('kim','file')->latest()->take(10)->get();
         foreach ($keg as $key => $value) {

@@ -31,6 +31,7 @@ Route::post('/tentang', 'Api\AppSiterubukController@tentang');
 
 
 Route::prefix('kim')->as('kim')->group(function () {
+    Route::post('/app_info', 'Api\KimController@app_info');
     Route::post('/login', 'Api\KimController@login');
     Route::post('/dashboard', 'Api\KimController@dashboard');
     Route::post('/tentang', 'Api\KimController@tentang');
