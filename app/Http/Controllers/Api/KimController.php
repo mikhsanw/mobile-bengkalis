@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 class KimController extends Controller
 {
@@ -214,22 +215,31 @@ class KimController extends Controller
             
             $data = KegiatanKim::create($request->all());
             foreach($request->file as $key => $item){
-                $image_64 = $item; //your base64 encoded data
-                $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];
+                $image_64 = $item; // Base64 encoded data
+                $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1]; // Get extension
                 $replace = substr($image_64, 0, strpos($image_64, ',')+1);
                 $image = str_replace($replace, '', $image_64);
                 $image = str_replace(' ', '+', $image);
                 $image = base64_decode($image);
+                
+                // Menggunakan Intervention Image untuk mengubah ukuran gambar
+                $img = Image::make($image)->resize(400, null, function ($constraint) {
+                    $constraint->aspectRatio();  // Mempertahankan rasio aspek
+                    $constraint->upsize();  // Menghindari pembesaran gambar jika ukurannya lebih kecil
+                })->encode($extension);  // Mengubah gambar menjadi ukuran 800x600
+                
                 $imageName = 'permohonan/file/'.date('Y').'/'.date('m').'/'.date('d').'/'.uniqid().'.'.$extension;
-                if(Storage::put($imageName,$image)){
+                
+                // Simpan gambar yang telah diubah ukurannya
+                if(Storage::put($imageName, $img->__toString())){  
                     $data->file()->create([
-                        'name'                  => $key,
-                        'data'                      =>  [
-                            'disk'      => config('filesystems.default'),
-                            'target'    => $imageName,
+                        'name' => $key,
+                        'data' => [
+                            'disk' => config('filesystems.default'),
+                            'target' => $imageName,
                         ]
                     ]);
-                };
+                }
             }
             $respon=["status"=>true,'pesan'=>'Data berhasil disimpan'];
         }

@@ -176,7 +176,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\HelpServiceProvider::class,
-        Madnest\Madzipper\MadzipperServiceProvider::class
+        Madnest\Madzipper\MadzipperServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
 
     ],
 
@@ -237,7 +238,8 @@ return [
         'PdfMerger' => LynX39\LaraPdfMerger\Facades\PdfMerger::class,
         'Madzipper' => Madnest\Madzipper\Madzipper::class,
         'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class,
-        'Carbon' => 'Carbon\Carbon'
+        'Carbon' => 'Carbon\Carbon',
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

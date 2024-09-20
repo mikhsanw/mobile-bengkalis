@@ -19,7 +19,6 @@
         "dyrynda/laravel-cascade-soft-deletes": "^4.1",
         "fideloper/proxy": "^4.2",
         "guzzlehttp/guzzle": "^7.0.1",
-        "intervention/image": "^2.7",
         "irebega/docx-replacer": "^1.1",
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^3.3",
