@@ -148,4 +148,13 @@ class Help extends Fungsi
         return $currency . ' ' . number_format($number, 0, ',', '.');
     }
 
+    public static function resizeImage($path, $file)
+    {
+        $image = Image::read($file);
+        // Resize image
+        $image->resize(400, null, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save(Storage::path($path));
+    }
+
 }
