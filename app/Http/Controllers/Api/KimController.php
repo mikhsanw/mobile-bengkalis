@@ -19,7 +19,7 @@ class KimController extends Controller
     public function app_info(){
         $data = [
             'nama_aplikasi'=>'KIM Bermasa',
-            'version'=>'1.0.2',
+            'version'=>'1.0.1',
             'id_ps'=>'kim.kimbermasa.bengkalis',
             'keterangan'=>'Yukk segera update aplikasi KIM Bermasa-mu sekarang.'
         ];
