@@ -221,8 +221,7 @@ class KimController extends Controller
                 $image = str_replace(' ', '+', $image);
                 $image = base64_decode($image);
                 $imageName = 'permohonan/file/'.date('Y').'/'.date('m').'/'.date('d').'/'.uniqid().'.'.$extension;
-
-                if(Help::resizeImage($imageName,$image)){
+                if(Storage::put($imageName,$image)){
                     $data->file()->create([
                         'name'                  => $key,
                         'data'                      =>  [
