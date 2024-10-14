@@ -31,7 +31,11 @@ class ProductsController extends Controller
                     <a class="delete hidden-xs hidden-sm hapus" data-toggle="tooltip" data-placement="top" title="Delete" '.$kode.'-id="' . $id . '" href="#hapus-' . $id . '">
                         <i class="fa fa-trash text-danger"></i>
                     </a>
-                </div>':'';
+                </div>':'<div style="text-align: center;">
+                    <a class="delete hidden-xs hidden-sm hapus" data-toggle="tooltip" data-placement="top" title="Delete" '.$kode.'-id="' . $id . '" href="#hapus-' . $id . '">
+                        <i class="fa fa-trash text-danger"></i>
+                    </a>
+                </div>';
             })->toJson();
         }
         else {

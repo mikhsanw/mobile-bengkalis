@@ -117,9 +117,9 @@ class KimController extends Controller
     public function login(Request $request)
     {
         $credentials=$request->only('email', 'password');
-        $cekuser = \App\Model\User::where(['email'=>$request->email,'level'=>2])->first();
+        $cekuser = \App\Model\User::where(['email'=>$request->email,'aksesgrup_id'=>2])->first();
         if(!$cekuser){
-            return response()->json(['status'=>false,'pesan'=>'Email tidak terdaftar']);
+            return response()->json(['status'=>false,'pesan'=>'Anda tidak mempunyai akses aplikasi']);
         }
         elseif(!Hash::check($request->password, $cekuser->password)){
             return response()->json(['status'=>false,'pesan'=>'Password salah']);

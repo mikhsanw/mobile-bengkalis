@@ -67,8 +67,8 @@
 									<p class="mt-15 mb-0">Don't have an account? <a href="auth_register.html" class="text-warning ml-5">Sign Up</a></p>
 								</div>	 -->
 								<div class="text-center">
-									<p class="mt-15 mb-0">Aplikasi KIM Bermasa <br>
-										<a href="https://play.google.com/store/apps/details?id=kim.kimbermasa.bengkalis" class="btn btn-primary btn-sm ml-5">Unduh</a></p>
+									<p class="mt-15 mb-0">Aplikasi KIM Bermasa
+										<a href="https://play.google.com/store/apps/details?id=kim.kimbermasa.bengkalis" class="btn btn-outline text-warning btn-sm ml-5">Unduh</a></p>
 								</div>
 							</div>						
 						</div>

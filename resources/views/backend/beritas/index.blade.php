@@ -16,7 +16,6 @@
 					<th class="text-center">Nama</th>
 					<th class="text-center">Isi</th>
 					<th class="text-center">Tanggal</th>
-					<th class="text-center">View</th>
 
 					<th width="50px" class="text-center" tabindex="0" rowspan="1" colspan="1">Aksi</th>
 				</tr>

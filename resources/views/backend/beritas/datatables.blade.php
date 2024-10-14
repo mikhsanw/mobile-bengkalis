@@ -14,8 +14,6 @@ $(document).ready(function() {
 				{ data: 'nama' },
 				{ data: 'isi' },
 				{ data: 'tanggal' },
-				{ data: 'view' },
-
 				{ data: 'action', orderable: false, searchable: false}
 		    ]
     });

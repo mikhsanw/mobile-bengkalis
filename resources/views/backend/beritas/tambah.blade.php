@@ -15,10 +15,6 @@
 			{!! Form::date('tanggal', null, array('id' => 'tanggal', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
 		</p>
 		<p>
-			{!! Form::label('view', 'Masukkan View', ['class'=>'control-label']) !!}
-			{!! Form::text('view', null, array('id' => 'view', 'class' => 'form-control', 'autocomplete' => 'off')) !!}
-		</p>
-		<p>
             {!! Form::label('foto', 'Upload Logo', array('class' => 'control-label')) !!} <br/>
             {!! Form::file('foto', null, array('id' => 'foto', 'class' => 'form-control')) !!}
         </p>

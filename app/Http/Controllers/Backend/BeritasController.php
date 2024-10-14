@@ -57,7 +57,6 @@ class BeritasController extends Controller
 					'nama' => 'required|'.config('master.regex.json'),
 					'isi' => 'required|'.config('master.regex.json'),
 					'tanggal' => 'required|'.config('master.regex.json'),
-					'view' => 'required|'.config('master.regex.json'),
                 ]);
             if ($validator->fails()) {
                 $respon=['status'=>false, 'pesan'=>$validator->messages()];
@@ -122,7 +121,6 @@ class BeritasController extends Controller
                 					'nama' => 'required|'.config('master.regex.json'),
 					'isi' => 'required|'.config('master.regex.json'),
 					'tanggal' => 'required|'.config('master.regex.json'),
-					'view' => 'required|'.config('master.regex.json'),
             ]);
             if ($validator->fails()) {
                 $response=['status'=>FALSE, 'pesan'=>$validator->messages()];
