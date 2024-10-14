@@ -30,10 +30,10 @@ class userController extends Controller
                 'status'=>FALSE, 
                 'pesan'=>$validator->messages()
             ];
-        }else if(User::where(['email'=>$request->email,'level'=>2])->whereHas('kim_anggota',fn($q)=>$q->where('level_kim',2))->first()){
+        }else if(User::where([$loginField=>$request->input('login'),'level'=>2])->whereHas('kim_anggota',fn($q)=>$q->where('level_kim',2))->first()){
             $response=[
                 'status'=>FALSE,
-                'pesan'=>['msg'=>'Anda bukan admin']
+                'pesan'=>['msg'=>'Maaf, anda bukan admin']
             ];
         } else {
             if (Auth::attempt($userdata, $request->filled('remember'))) {
@@ -56,7 +56,7 @@ class userController extends Controller
                 // If authentication fails
                 $response = [
                     'status' => false,
-                    'pesan' => ['msg' => 'Username atau password salah']
+                    'pesan' => ['msg' => 'Maaf, username atau password salah']
                 ];
             }
 
